@@ -39,7 +39,6 @@ public class RestFulServer {
                 public void PreProcess(HttpServletRequest request) {
                     System.out.println("first level" + request.toString());
                 }
-
                 @Override
                 public void PostProcess(HttpServletResponse response) {
                     System.out.println("processed, going through");
@@ -48,8 +47,7 @@ public class RestFulServer {
             .use(new Middleware() {
                 @Override
                 public void PreProcess(HttpServletRequest request) {
-
-                    System.out.println("first level" + request.toString());
+                    System.out.println("second level" + request.toString());
                 }
 
                 @Override
@@ -57,8 +55,13 @@ public class RestFulServer {
                     System.out.println("Continued...");
                 }
             })
-//            .all(".*",
-//                    StaticFileController.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html"))
+            .all("/debug/${name}/${gender}",
+                    new JSONController() {
+                        @Override
+                        public Object JSONify(ParamMap params) {
+                            return params;
+                        }
+                    })
             .listen(8080).start();
         }
         catch (Exception exp){

@@ -53,7 +53,9 @@ public class UrlRouter implements Router {
                 routeRules.add(url);
                 deleteRouters.put(url, new MatchAndController(UrlMatcher.compile(url), controller));
             }
-            throw new JxpressNotSupportException("not implement http method");
+            else {
+                throw new JxpressNotSupportException("not implement http method");
+            }
         }
         finally {
             writeLock.unlock();

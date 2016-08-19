@@ -18,6 +18,11 @@ public class MiddlewareExceptionHandler implements ExceptionHandler {
 
     }
 
+    /**
+     * create a handler
+     * @param str
+     * @return
+     */
     public static MiddlewareExceptionHandler create(String str){
         return new MiddlewareExceptionHandler(str);
     }

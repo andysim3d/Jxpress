@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -20,7 +21,8 @@ public class StaticView implements View {
     @Override
     public void template(String path) {
         try {
-            java.nio.file.Path localpath = FileSystems.getDefault().getPath(path);
+            String v = System.getProperty("user.dir");
+            java.nio.file.Path localpath = FileSystems.getDefault().getPath(v + "/src/main/resources/" + path);
             this.file = Files.readAllLines(localpath, Charset.forName("utf-8"));
         }
         catch (Exception exp){

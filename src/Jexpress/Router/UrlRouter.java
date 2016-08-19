@@ -61,7 +61,7 @@ public class UrlRouter implements Router {
     }
 
     @Override
-    public Controller route(HttpServletRequest request) throws JxpressUrlNotMatchedException{
+    public Controller route(HttpServletRequest request) throws JxpressUrlNotMatchedException, JxpressNotSupportException{
         Lock readLock = readWriteLock.readLock();
         readLock.lock();
         try {
@@ -71,6 +71,7 @@ public class UrlRouter implements Router {
                         return matchAndController.getController();
                     }
                 }
+                throw new JxpressUrlNotMatchedException("router not matched");
             }
             else if ("post".equalsIgnoreCase(request.getMethod())){
                 for (MatchAndController matchAndController : postRouters.values()){
@@ -78,12 +79,14 @@ public class UrlRouter implements Router {
                         return matchAndController.getController();
                     }
                 }
+                throw new JxpressUrlNotMatchedException("router not matched");
             }else if ("put".equalsIgnoreCase(request.getMethod())){
                 for (MatchAndController matchAndController : putRouters.values()){
                     if (matchAndController.getMatcher().match(request)){
                         return matchAndController.getController();
                     }
                 }
+                throw new JxpressUrlNotMatchedException("router not matched");
             }
             else if ("delete".equalsIgnoreCase(request.getMethod())){
                 for (MatchAndController matchAndController : deleteRouters.values()){
@@ -91,8 +94,9 @@ public class UrlRouter implements Router {
                         return matchAndController.getController();
                     }
                 }
+                throw new JxpressUrlNotMatchedException("router not matched");
             }
-            throw new JxpressUrlNotMatchedException("router not matched");
+            throw new JxpressNotSupportException("not supported Http method");
         }
         finally {
             readLock.unlock();

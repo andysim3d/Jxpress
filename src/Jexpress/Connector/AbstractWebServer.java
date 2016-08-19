@@ -14,7 +14,8 @@ import java.util.List;
  * Created by Pengfei on 8/18/2016.
  */
 public abstract class AbstractWebServer implements WebServer {
-    public static ExceptionHandler expHandler = NotFoundExceptionHandler.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html");
+    public static ExceptionHandler notfindHandler = NotFoundExceptionHandler.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html");
+    public static ExceptionHandler notsupportedHandler = NotFoundExceptionHandler.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\notsupported.html");
     protected UrlRouter urlRouter = new UrlRouter();
 
     private int port;

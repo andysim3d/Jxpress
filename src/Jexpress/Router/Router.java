@@ -12,9 +12,9 @@ import java.util.List;
  * Created by Pengfei on 8/19/2016.
  */
 public interface Router {
-    void addController(String url, Controller controller, String method) throws JxpressNotSupportException;
+    void addController(String url, Controller controller, String method) throws JxpressNotSupportException ;
 
-    Controller route(HttpServletRequest request) throws JxpressUrlNotMatchedException;
+    Controller route(HttpServletRequest request) throws JxpressUrlNotMatchedException, JxpressNotSupportException;
 
     List<String> routeRules();
 

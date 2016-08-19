@@ -1,5 +1,6 @@
 package Jexpress.Connector;
 
+import Jexpress.Exceptions.JxpressNotSupportException;
 import Jexpress.Exceptions.JxpressUrlNotMatchedException;
 import Jexpress.WebServer;
 import Jexpress.Router.UrlRouter;
@@ -54,7 +55,10 @@ public class JettyWebServer extends AbstractWebServer{
                 urlRouter.route(httpServletRequest).execute(httpServletRequest, httpServletResponse);
             }
             catch (JxpressUrlNotMatchedException jex){
-                expHandler.handle(httpServletRequest, httpServletResponse);
+                notfindHandler.handle(httpServletRequest, httpServletResponse);
+            }
+            catch (JxpressNotSupportException jexnotsupport){
+                notsupportedHandler.handle(httpServletRequest,httpServletResponse);
             }
             catch (Exception exp){
                 exp.printStackTrace();

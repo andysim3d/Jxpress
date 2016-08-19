@@ -25,6 +25,22 @@ public interface WebServer {
     WebServer get(String url, Controller controller);
 
     /**
+     * process put method
+     * @param url entire url
+     * @param controller called controller
+     * @return webserver instance
+     */
+    WebServer put(String url, Controller controller);
+
+    /**
+     * process delete method
+     * @param url entire url
+     * @param controller called controller
+     * @return webserver instance
+     */
+    WebServer delete(String url, Controller controller);
+
+    /**
      * process post method
      * @param url entire url
      * @param controller called controller

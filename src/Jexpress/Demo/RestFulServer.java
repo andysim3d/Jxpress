@@ -29,8 +29,8 @@ public class RestFulServer {
                     return ResultMap.create().put("id", params.getInt("id"));
                 }
             }).get("/about",StaticFileController.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\test.html"))
-            .all(".*",
-                    StaticFileController.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html"))
+//            .all(".*",
+//                    StaticFileController.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html"))
             .listen(8080).start();
         }
         catch (Exception exp){

@@ -6,7 +6,7 @@ package Jexpress;
 public class Version {
     private static int major = 0;
     private static int minor = 0;
-    private static int minor2 = 0;
+    private static int minor2 = 1;
     private static int scrum = 1;
 
     public static String versionNumber(){

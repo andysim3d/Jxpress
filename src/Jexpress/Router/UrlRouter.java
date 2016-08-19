@@ -1,6 +1,10 @@
 package Jexpress.Router;
 
 import Jexpress.Controller.Controller;
+import Jexpress.Exceptions.JxpressException;
+import Jexpress.Exceptions.JxpressNotSupportException;
+import Jexpress.Exceptions.JxpressUrlNotMatchedException;
+import Jexpress.Handler.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -10,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.logging.Handler;
 
 /**
  * Created by Pengfei on 8/18/2016.
@@ -17,14 +22,21 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class UrlRouter implements Router {
     private Map<String, MatchAndController> getRouters = new LinkedHashMap<>();
 
-    private Map<String, MatchAndController> postRouter = new LinkedHashMap<>();
+    private Map<String, MatchAndController> postRouters = new LinkedHashMap<>();
+
+    private Map<String, MatchAndController> putRouters = new LinkedHashMap<>();
+
+    private Map<String, MatchAndController> deleteRouters = new LinkedHashMap<>();
 
     private List<String> routeRules;
+
+    private ExceptionHandler handler;
 
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     @Override
-    public void addController(String url, Controller controller, String method){
+    public void addController(String url, Controller controller, String method) throws JxpressNotSupportException
+    {
         Lock writeLock = readWriteLock.writeLock();
         writeLock.lock();
         try {
@@ -33,8 +45,15 @@ public class UrlRouter implements Router {
                 getRouters.put(url, new MatchAndController(UrlMatcher.compile(url), controller));
             }else if ("post".equalsIgnoreCase(method)){
                 routeRules.add(url);
-                postRouter.put(url, new MatchAndController(UrlMatcher.compile(url), controller));
+                postRouters.put(url, new MatchAndController(UrlMatcher.compile(url), controller));
+            }else if ("put".equalsIgnoreCase(method)){
+                routeRules.add(url);
+                putRouters.put(url, new MatchAndController(UrlMatcher.compile(url), controller));
+            }else if ("delete".equalsIgnoreCase(method)){
+                routeRules.add(url);
+                deleteRouters.put(url, new MatchAndController(UrlMatcher.compile(url), controller));
             }
+            throw new JxpressNotSupportException("not implement http method");
         }
         finally {
             writeLock.unlock();
@@ -42,7 +61,7 @@ public class UrlRouter implements Router {
     }
 
     @Override
-    public Controller route(HttpServletRequest request){
+    public Controller route(HttpServletRequest request) throws JxpressUrlNotMatchedException{
         Lock readLock = readWriteLock.readLock();
         readLock.lock();
         try {
@@ -54,17 +73,30 @@ public class UrlRouter implements Router {
                 }
             }
             else if ("post".equalsIgnoreCase(request.getMethod())){
-                for (MatchAndController matchAndController : postRouter.values()){
+                for (MatchAndController matchAndController : postRouters.values()){
+                    if (matchAndController.getMatcher().match(request)){
+                        return matchAndController.getController();
+                    }
+                }
+            }else if ("put".equalsIgnoreCase(request.getMethod())){
+                for (MatchAndController matchAndController : putRouters.values()){
                     if (matchAndController.getMatcher().match(request)){
                         return matchAndController.getController();
                     }
                 }
             }
+            else if ("delete".equalsIgnoreCase(request.getMethod())){
+                for (MatchAndController matchAndController : deleteRouters.values()){
+                    if (matchAndController.getMatcher().match(request)){
+                        return matchAndController.getController();
+                    }
+                }
+            }
+            throw new JxpressUrlNotMatchedException("router not matched");
         }
         finally {
             readLock.unlock();
         }
-        return  null;
     }
 
     public UrlRouter(){

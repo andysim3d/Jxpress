@@ -6,7 +6,7 @@ import express.connector.Controller.ResultMap;
 import express.connector.WebServer;
 
 /**
- * Created by Admin on 8/18/2016.
+ * Created by Pengfei on 8/18/2016.
  */
 public class RestFulServer {
 
@@ -31,7 +31,6 @@ public class RestFulServer {
         }
         catch (Exception exp){
             exp.printStackTrace();
-            //WebServer.jettyServer().stop();
         }
     }
 }

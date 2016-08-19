@@ -3,6 +3,7 @@ A very Simple Express style frame work written in Java
 
 Referring to [code4craft](https://github.com/code4craft)'s express.java .
 
+more APIs please [goto wiki page](https://github.com/andysim3d/Jxpress/wiki)
 Running:
 
 ```Java

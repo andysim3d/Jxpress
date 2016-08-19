@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface Controller {
     // main logic
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    void execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     /**
      *
@@ -18,7 +18,7 @@ public interface Controller {
      * @param response response
      * @throws Exception any exception when process
      */
-    public void beforeExecute(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    void beforeExecute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     /**
      * after execute, logging or
@@ -26,6 +26,6 @@ public interface Controller {
      * @param response response
      * @throws Exception any exception
      */
-    public void afterExecute(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    void afterExecute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 }

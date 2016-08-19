@@ -10,13 +10,12 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.List;
 
-/**
+/** StaticView, just a static file as view
  * Created by Pengfei on 8/19/2016.
  */
 public class StaticView implements View {
+
     List<String> file;
-
-
 
     @Override
     public void template(String path) {
@@ -28,6 +27,7 @@ public class StaticView implements View {
             exp.printStackTrace();
         }
     }
+
 
     @Override
     public Object render() {

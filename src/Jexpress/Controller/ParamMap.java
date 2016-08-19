@@ -2,8 +2,8 @@ package Jexpress.Controller;
 
 import java.util.HashMap;
 
-/**
- * Created by Admin on 8/18/2016.
+/** parameter map, as hashMap
+ * Created by Pengfei on 8/18/2016.
  */
 public class ParamMap extends HashMap<String, String>{
     public int getInt(String key){

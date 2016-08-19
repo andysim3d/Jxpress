@@ -1,13 +1,13 @@
 package Jexpress.Router;
 import javax.servlet.http.HttpServletRequest;
 /**
- * Created by Admin on 8/18/2016.
+ * Created by Pegnfei on 8/18/2016.
  */
 public abstract class UrlMatcher {
     /**
      * match url
      * @param request
-     * @return
+     * @return true of matched, false as not matched
      */
     public abstract boolean match(HttpServletRequest request);
 

@@ -2,7 +2,7 @@ package Jexpress.Controller;
 
 import java.util.HashMap;
 
-/**
+/** Result Map, as Hash Map
  * Created by Pengfei on 8/18/2016.
  */
 public class ResultMap extends HashMap<String, Object> {

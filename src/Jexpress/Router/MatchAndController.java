@@ -2,8 +2,8 @@ package Jexpress.Router;
 
 import Jexpress.Controller.Controller;
 
-/**
- * Created by Admin on 8/18/2016.
+/** combinator of matcher and Controller
+ * Created by Pengfei on 8/18/2016.
  */
 public class MatchAndController {
     private final UrlMatcher matcher;

@@ -8,8 +8,8 @@ import java.io.OutputStreamWriter;
 import java.util.Enumeration;
 import java.util.Map;
 
-/**
- * Created by Admin on 8/18/2016.
+/** will return pure JSON file
+ * Created by Pengfei on 8/18/2016.
  */
 public abstract class JSONController extends AbstractController {
 

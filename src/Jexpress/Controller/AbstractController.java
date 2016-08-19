@@ -1,9 +1,11 @@
 package Jexpress.Controller;
 
+import Jexpress.Version;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
+/** Abstract Controller
  * Created by Admin on 8/19/2016.
  */
 public abstract class AbstractController implements Controller {
@@ -18,7 +20,9 @@ public abstract class AbstractController implements Controller {
 
     @Override
     public void beforeExecute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return;
+        response.addHeader(
+                "freme", "Jxpress" + Version.getVersion()
+        );
     }
 
     @Override

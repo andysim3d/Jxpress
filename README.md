@@ -7,26 +7,25 @@ Running:
 
 ```Java
 public static void main(String[] args) throws Exception {
-    try {
-        WebServer.jettyServer().get("/", new JSONController() {
-            @Override
-            public Object JSONify(ParamMap params) {
-                return ResultMap.create().put("code", 200).put("msg", "ok");
-            }
-        }).get("/echo", new JSONController() {
-            @Override
-            public Object JSONify(ParamMap params) {
-                return params;
-            }
-        }).get("/echo/${id}", new JSONController() {
-            @Override
-            public Object JSONify(ParamMap params) {
-                return ResultMap.create().put("id", params.getInt("id"));
-            }
-        }).listen(8080).start();
+        try {
+            WebServer.jettyServer().
+            //JSON controller, will return JSON file
+            .get("/echo/${id}", new JSONController() {
+                @Override
+                public Object JSONify(ParamMap params) {
+                    return ResultMap.create().put("id", params.getInt("id"));
+                }
+            })
+            // staic file View
+            .get("/about",StaticFileController.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\test.html"))
+            // test post and get, for not matched url
+            .all(".*",
+                    StaticFileController.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html"))
+            .listen(8080).start();
+        }
+        catch (Exception exp){
+            exp.printStackTrace();
+            // do nothing
+        }
     }
-    catch (Exception exp){
-        exp.printStackTrace();
-    }
-}
 ```

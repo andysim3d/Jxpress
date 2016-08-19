@@ -1,9 +1,10 @@
-package express.connector.Demo;
+package Jexpress.Demo;
 
-import express.connector.Controller.JSONController;
-import express.connector.Controller.ParamMap;
-import express.connector.Controller.ResultMap;
-import express.connector.WebServer;
+import Jexpress.Controller.ParamMap;
+import Jexpress.Controller.ResultMap;
+import Jexpress.Controller.JSONController;
+import Jexpress.Controller.StaticFileController;
+import Jexpress.WebServer;
 
 /**
  * Created by Pengfei on 8/18/2016.
@@ -27,7 +28,10 @@ public class RestFulServer {
                 public Object JSONify(ParamMap params) {
                     return ResultMap.create().put("id", params.getInt("id"));
                 }
-            }).listen(8080).start();
+            }).get("/about",
+                    new StaticFileController("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\test.html"))
+            .all(".*", new StaticFileController("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html"))
+            .listen(8080).start();
         }
         catch (Exception exp){
             exp.printStackTrace();

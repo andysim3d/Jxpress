@@ -1,6 +1,6 @@
-package express.connector.router;
+package Jexpress.Router;
 
-import express.connector.Controller.Controller;
+import Jexpress.Controller.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * Created by Admin on 8/18/2016.
+ * Created by Pengfei on 8/18/2016.
  */
-public class UrlRouter {
+public class UrlRouter implements Router {
     private Map<String, MatchAndController> getRouters = new LinkedHashMap<>();
 
     private Map<String, MatchAndController> postRouter = new LinkedHashMap<>();
@@ -23,6 +23,7 @@ public class UrlRouter {
 
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
+    @Override
     public void addController(String url, Controller controller, String method){
         Lock writeLock = readWriteLock.writeLock();
         writeLock.lock();
@@ -40,6 +41,7 @@ public class UrlRouter {
         }
     }
 
+    @Override
     public Controller route(HttpServletRequest request){
         Lock readLock = readWriteLock.readLock();
         readLock.lock();
@@ -68,6 +70,7 @@ public class UrlRouter {
     public UrlRouter(){
         this.routeRules = new ArrayList<>();
     }
+    @Override
     public List<String> routeRules(){
         return this.routeRules;
     }

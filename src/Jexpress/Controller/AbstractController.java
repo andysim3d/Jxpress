@@ -1,4 +1,4 @@
-package express.connector.Controller;
+package Jexpress.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

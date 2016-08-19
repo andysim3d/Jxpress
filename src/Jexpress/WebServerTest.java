@@ -1,7 +1,7 @@
-package express.connector;
+package Jexpress;
 
-import express.connector.Controller.JSONController;
-import express.connector.Controller.ParamMap;
+import Jexpress.Controller.ParamMap;
+import Jexpress.Controller.JSONController;
 import org.testng.annotations.Test;
 
 /**

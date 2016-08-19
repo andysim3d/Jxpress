@@ -1,9 +1,7 @@
-package express.connector.connector;
+package Jexpress.Connector;
 
-import express.connector.Controller.Controller;
-import express.connector.WebServer;
-import express.connector.router.UrlMatcher;
-import express.connector.router.UrlRouter;
+import Jexpress.WebServer;
+import Jexpress.Router.UrlRouter;
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -12,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Admin on 8/18/2016.
+/** concrete Web server with Jetty
+ * Created by Pengfei on 8/18/2016.
  */
 public class JettyWebServer extends AbstractWebServer{
     private Server server;
@@ -44,7 +42,7 @@ public class JettyWebServer extends AbstractWebServer{
         return this;
     }
 
-    static class WebServerHandler extends AbstractHandler{
+    private static class WebServerHandler extends AbstractHandler{
         private UrlRouter urlRouter;
         WebServerHandler(UrlRouter urlRouter){
             this.urlRouter = urlRouter;

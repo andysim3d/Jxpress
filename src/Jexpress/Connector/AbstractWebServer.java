@@ -1,13 +1,13 @@
-package express.connector.connector;
+package Jexpress.Connector;
 
-import express.connector.Controller.Controller;
-import express.connector.WebServer;
-import express.connector.router.UrlRouter;
+import Jexpress.Controller.Controller;
+import Jexpress.Router.UrlRouter;
+import Jexpress.WebServer;
 
 import java.util.List;
 
-/**
- * Created by Admin on 8/18/2016.
+/** abstract web server
+ * Created by Pengfei on 8/18/2016.
  */
 public abstract class AbstractWebServer implements WebServer {
     private UrlRouter urlRouter = new UrlRouter();
@@ -23,6 +23,13 @@ public abstract class AbstractWebServer implements WebServer {
     @Override
     public WebServer post(String url, Controller controller) {
         urlRouter.addController(url,controller,"post");
+        return this;
+    }
+
+    @Override
+    public WebServer all(String url, Controller controller){
+        urlRouter.addController(url,controller,"post");
+        urlRouter.addController(url,controller,"get");
         return this;
     }
 

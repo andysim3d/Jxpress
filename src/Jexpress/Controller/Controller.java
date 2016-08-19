@@ -1,4 +1,4 @@
-package express.connector.Controller;
+package Jexpress.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +14,9 @@ public interface Controller {
     /**
      *
      // before execute, pre process
-     * @param request
-     * @param response
-     * @throws Exception
+     * @param request request
+     * @param response response
+     * @throws Exception any exception when process
      */
     public void beforeExecute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 

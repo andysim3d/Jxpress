@@ -1,7 +1,7 @@
-package express.connector;
+package Jexpress;
 
-import express.connector.Controller.Controller;
-import express.connector.connector.JettyWebServer;
+import Jexpress.Connector.JettyWebServer;
+import Jexpress.Controller.Controller;
 
 import java.util.List;
 
@@ -31,6 +31,15 @@ public interface WebServer {
      * @return webserver instance
      */
     WebServer post(String url, Controller controller);
+
+
+    /**
+     * Either post or get method
+     * @param url
+     * @param controller
+     * @return
+     */
+    WebServer all(String url, Controller controller);
 
     /**
      * control web server running

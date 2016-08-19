@@ -2,12 +2,15 @@ package Jexpress.Connector;
 
 import Jexpress.Controller.Controller;
 import Jexpress.Handler.ExceptionHandler;
+import Jexpress.Handler.MiddlewareExceptionHandler;
 import Jexpress.Handler.NotFoundExceptionHandler;
+import Jexpress.Middleware.Middleware;
 import Jexpress.Router.UrlRouter;
 import Jexpress.WebServer;
 import com.sun.xml.internal.ws.util.VersionUtil;
 import jdk.nashorn.internal.runtime.Version;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** abstract web server
@@ -16,8 +19,13 @@ import java.util.List;
 public abstract class AbstractWebServer implements WebServer {
     public static ExceptionHandler notfindHandler = NotFoundExceptionHandler.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\404.html");
     public static ExceptionHandler notsupportedHandler = NotFoundExceptionHandler.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\notsupported.html");
+
+    public static ExceptionHandler middlewareContinueHandler = MiddlewareExceptionHandler.create("");
+    public static ExceptionHandler middlewareAbortHandler = MiddlewareExceptionHandler.create("");
+
     protected UrlRouter urlRouter = new UrlRouter();
 
+    protected static List<Middleware> middlewareList = new ArrayList<>();
     private int port;
 
     @Override
@@ -31,6 +39,12 @@ public abstract class AbstractWebServer implements WebServer {
         }finally {
             return  this;
         }
+    }
+
+    @Override
+    public WebServer use(Middleware middleware) {
+        middlewareList.add(middleware);
+        return this;
     }
 
     @Override

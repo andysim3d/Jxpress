@@ -2,6 +2,7 @@ package Jexpress;
 
 import Jexpress.Connector.JettyWebServer;
 import Jexpress.Controller.Controller;
+import Jexpress.Middleware.Middleware;
 
 import java.util.List;
 
@@ -48,6 +49,12 @@ public interface WebServer {
      */
     WebServer post(String url, Controller controller);
 
+    /**
+     * Add middleware to server
+     * @param middleware middle ware
+     * @return webserver instance
+     */
+    WebServer use(Middleware middleware);
 
     /**
      * Either post or get method

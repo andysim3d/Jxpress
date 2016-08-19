@@ -31,6 +31,7 @@ public class RestFulServer {
         }
         catch (Exception exp){
             exp.printStackTrace();
+            // do nothing
         }
     }
 }

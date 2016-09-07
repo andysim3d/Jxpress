@@ -23,7 +23,7 @@ public static void main(String[] args) throws Exception {
             public Object JSONify(ParamMap params) {
                 return ResultMap.create().put("id", params.getInt("id"));
             }
-        }).get("/about",StaticFileController.create("C:\\Users\\Admin\\IdeaProjects\\Jxpress\\src\\Jexpress\\template\\test.html"))
+        }).get("/about",StaticFileController.create("template\\test.html"))
         .use(new Middleware() {
             @Override
             public void PreProcess(HttpServletRequest request) {

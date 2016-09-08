@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 public interface Middleware {
     //AOP
     // should use decorate pattern
-    void PreProcess(HttpServletRequest request) throws JxpressMiddleAbortException, JxpressMiddlewareIgnoreException;
 
-    void PostProcess(HttpServletResponse response) throws JxpressMiddleAbortException, JxpressMiddlewareIgnoreException;
-
+    void Process(HttpServletRequest request,HttpServletResponse response) throws JxpressMiddleAbortException, JxpressMiddlewareIgnoreException;
 }

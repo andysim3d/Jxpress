@@ -4,9 +4,11 @@ import Jexpress.Exceptions.JxpressMiddleAbortException;
 import Jexpress.Exceptions.JxpressMiddlewareIgnoreException;
 import Jexpress.Exceptions.JxpressNotSupportException;
 import Jexpress.Exceptions.JxpressUrlNotMatchedException;
+import Jexpress.Filter.IFilter;
 import Jexpress.Middleware.Middleware;
 import Jexpress.WebServer;
 import Jexpress.Router.UrlRouter;
+import com.sun.org.apache.bcel.internal.generic.IF_ICMPEQ;
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -40,6 +42,8 @@ public class JettyWebServer extends AbstractWebServer{
         server = new Server(getPort());
         WebServerHandler hdler = new WebServerHandler(getUrlRouter());
         hdler.middlewares = this.middlewareList;
+        hdler.postFilter = postFilter;
+        hdler.preFilter = preFilter;
         server.setHandler(hdler);
 
         try{
@@ -53,7 +57,8 @@ public class JettyWebServer extends AbstractWebServer{
 
     private static class WebServerHandler extends AbstractHandler{
         public List<Middleware> middlewares;
-
+        public List<IFilter> preFilter;
+        public List<IFilter> postFilter;
         /**
          * process middleware one by one
          * @param httpServletRequest
@@ -63,8 +68,7 @@ public class JettyWebServer extends AbstractWebServer{
 
             for (Middleware mid : middlewares){
                 try {
-                    mid.PreProcess(httpServletRequest);
-                    mid.PostProcess(httpServletResponse);
+                    mid.Process(httpServletRequest, httpServletResponse);
                 }
                 catch (JxpressMiddlewareIgnoreException e){
                     middlewareContinueHandler.handle(httpServletRequest,httpServletResponse);
@@ -77,6 +81,19 @@ public class JettyWebServer extends AbstractWebServer{
             }
         }
 
+        private  void preFilterProcess(HttpServletRequest request){
+            for (IFilter mid : preFilter){
+                mid.preProcess(request);
+            }
+        }
+
+        private void postFilterProcess(HttpServletResponse response){
+            for (IFilter mid : postFilter){
+                mid.postProcess(response);
+            }
+        }
+
+
         private UrlRouter urlRouter;
         WebServerHandler(UrlRouter urlRouter){
             this.urlRouter = urlRouter;
@@ -84,8 +101,10 @@ public class JettyWebServer extends AbstractWebServer{
         @Override
         public void handle(String s, Request request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
             try {
+                preFilterProcess(httpServletRequest);
                 middlewareProcessIn(httpServletRequest,httpServletResponse);
                 urlRouter.route(httpServletRequest).execute(httpServletRequest, httpServletResponse);
+                postFilterProcess(httpServletResponse);
             }
             catch (JxpressUrlNotMatchedException jex){
                 notfindHandler.handle(httpServletRequest, httpServletResponse);

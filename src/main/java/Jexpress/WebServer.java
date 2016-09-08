@@ -2,6 +2,7 @@ package Jexpress;
 
 import Jexpress.Connector.JettyWebServer;
 import Jexpress.Controller.Controller;
+import Jexpress.Filter.IFilter;
 import Jexpress.Middleware.Middleware;
 
 import java.util.List;
@@ -83,6 +84,11 @@ public interface WebServer {
     public static WebServer jettyServer(){
         return new JettyWebServer();
     }
+
+    WebServer beforeFilter(IFilter filter);
+
+
+    WebServer afterFilter(IFilter filter);
 
     public List<String> mountpath();
 

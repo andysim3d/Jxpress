@@ -4,6 +4,7 @@ import Jexpress.Controller.ParamMap;
 import Jexpress.Controller.ResultMap;
 import Jexpress.Controller.JSONController;
 import Jexpress.Controller.StaticFileController;
+import Jexpress.Filter.IFilter;
 import Jexpress.Middleware.Middleware;
 import Jexpress.WebServer;
 
@@ -36,23 +37,42 @@ public class RestFulServer {
             }).get("/about",StaticFileController.create("test.html"))
             .use(new Middleware() {
                 @Override
-                public void PreProcess(HttpServletRequest request) {
+                public void Process(HttpServletRequest request, HttpServletResponse response){
                     System.out.println("first level" + request.toString());
                 }
+            })
+            .beforeFilter(new IFilter() {
                 @Override
-                public void PostProcess(HttpServletResponse response) {
-                    System.out.println("processed, going through");
+                public void preProcess(HttpServletRequest request) {
+                    if (request.getParameter("test") == null){
+                        System.out.println("not included");
+                    }
+                    else{
+                        System.out.printf("%s is %s\n", "test", request.getParameter("test").toString());
+                    }
+                }
+
+                @Override
+                public void postProcess(HttpServletResponse response) {
+
+                }
+            })
+            .afterFilter(new IFilter() {
+                @Override
+                public void preProcess(HttpServletRequest request) {
+
+                }
+
+                @Override
+                public void postProcess(HttpServletResponse response) {
+                    System.out.println("take 10 seconds");
                 }
             })
             .use(new Middleware() {
                 @Override
-                public void PreProcess(HttpServletRequest request) {
-                    System.out.println("second level" + request.toString());
-                }
+                public void Process(HttpServletRequest request, HttpServletResponse response){
+                    System.out.println("first level" + request.toString());
 
-                @Override
-                public void PostProcess(HttpServletResponse response) {
-                    System.out.println("Continued...");
                 }
             })
             .all("/debug/${name}/${gender}",

@@ -1,5 +1,9 @@
 # this is a java project using maven
 language: java
-# install
 os: macOS
+# install
 install: "mvn install"
+#jdk
+jdk:
+  - oraclejdk8
+  - openjdk8

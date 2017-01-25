@@ -8,9 +8,6 @@ import Jexpress.Handler.NotFoundExceptionHandler;
 import Jexpress.Middleware.Middleware;
 import Jexpress.Router.UrlRouter;
 import Jexpress.WebServer;
-import com.sun.xml.internal.ws.util.VersionUtil;
-import jdk.nashorn.internal.runtime.Version;
-
 import java.util.ArrayList;
 import java.util.List;
 

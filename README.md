@@ -1,4 +1,8 @@
 # Jxpress
+
+[![Build Status](https://travis-ci.org/andysim3d/Jxpress.svg?branch=master)](https://travis-ci.org/andysim3d/Jxpress)
+
+
 A very Simple Express style frame work written in Java
 
 Referring to [code4craft](https://github.com/code4craft)'s express.java .

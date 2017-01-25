@@ -1,3 +1,5 @@
 # this is a java project using maven
 language: java
 # install
+os: macOS
+install: "mvn install"

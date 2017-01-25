@@ -18,14 +18,14 @@ public abstract class AbstractController implements Controller {
         afterExecute(request, response);
     }
 
-    @Override
+//    @Override
     public void beforeExecute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.addHeader(
                 "freme", "Jxpress" + Version.getVersion()
         );
     }
 
-    @Override
+//    @Override
     public void afterExecute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return;
     }

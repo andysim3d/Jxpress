@@ -2,7 +2,6 @@ package Jexpress.Middleware;
 
 import Jexpress.Exceptions.JxpressMiddleAbortException;
 import Jexpress.Exceptions.JxpressMiddlewareIgnoreException;
-import Jexpress.Handler.Func;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

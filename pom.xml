@@ -8,13 +8,13 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
-            <version>9.3.11.v20160721</version>
+            <version>9.4.12.v20180830</version>
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-util-ajax</artifactId>
-            <version>9.3.11.v20160721</version>
+            <version>9.4.12.v20180830</version>
         </dependency>
 
     </dependencies>
